@@ -2,10 +2,10 @@ package de.test
 
 class Test {
 	def static void main(String[] args) {
-		println("Hello " + test())
+		println("Hello " + test)
 	}
 	
-	def test() {
+	def static test() {
 		"World"
 	}
 }
