@@ -1,11 +1,10 @@
 package de.test
 
+import java.awt.Component
 import javax.swing.JButton
 import javax.swing.JFrame
-import javax.swing.SwingUtilities
 import javax.swing.JOptionPane
-import javax.swing.JComponent
-import java.awt.Component
+import javax.swing.SwingUtilities
 
 class Main {
 	def static void main(String[] args) {
