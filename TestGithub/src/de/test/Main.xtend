@@ -23,7 +23,7 @@ class Main {
 	}
 	
 	def static openDialog(Component comp) {
-		JOptionPane.showMessageDialog(comp, "Message", "Gaaaaaaanz laaaaaanger Tiiiiiiitel", JOptionPane.INFORMATION_MESSAGE)
+		JOptionPane.showMessageDialog(comp, "Mfesffsfage", "Gaaaaaaanz laaaaaanger Tiiiiiiitel", JOptionPane.INFORMATION_MESSAGE)
 	}
 	
 }
