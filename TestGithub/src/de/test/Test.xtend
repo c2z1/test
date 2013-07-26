@@ -6,6 +6,6 @@ class Test {
 	}
 	
 	def static test() {
-		"World"
+		"World" + new Test2().test("bbb")
 	}
 }
