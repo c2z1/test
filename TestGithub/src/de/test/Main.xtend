@@ -16,7 +16,7 @@ class Main {
 		new JFrame("Tiitle") => [
 			val frame = it
 			setVisible(true)
-			add(new JButton("Test") => [addActionListener[e|openDialog(frame)]])
+			add(new JButton("Tffest") => [addActionListener[e|openDialog(frame)]])
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
 			pack()
 		]
