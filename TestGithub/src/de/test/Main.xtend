@@ -23,7 +23,11 @@ class Main {
 	}
 	
 	def static openDialog(Component comp) {
+<<<<<<< HEAD
 		JOptionPane.showMessageDialog(comp, "Mfesffsfage", "Gaaaaaaanz laaaaaanger Tiiiiiiitel", JOptionPane.INFORMATION_MESSAGE)
+=======
+		JOptionPane.showMessageDialog(comp, "Messsdage", "Gaaaaaaanz laaaaaanger Tiiiiiiitel", JOptionPane.INFORMATION_MESSAGE)
+>>>>>>> refs/heads/master
 	}
 	
 }
