@@ -13,7 +13,7 @@ class Main {
 	}
 	
 	def static openFrame() {
-		new JFrame("Tiitle") => [
+		new JFrame("Tiddtle") => [
 			val frame = it
 			setVisible(true)
 			add(new JButton("Tffest") => [addActionListener[e|openDialog(frame)]])

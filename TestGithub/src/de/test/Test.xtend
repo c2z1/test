@@ -2,7 +2,7 @@ package de.test
 
 class Test {
 	def static void main(String[] args) {
-		println("Hedllo " + test)
+		println("Heyxcldlo " + test)
 	}
 	
 	def static test() {
