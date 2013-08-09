@@ -3,6 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: GwtAnnotations
 Bundle-SymbolicName: GwtAnnotations
 Bundle-Version: 1.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.xtend.standalone;bundle-version="2.4.0",
  org.junit;bundle-version="4.10.0"
