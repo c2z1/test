@@ -4,7 +4,6 @@ import com.google.gwt.core.client.EntryPoint
 import com.google.gwt.core.client.GWT
 import com.google.gwt.user.client.ui.RootPanel
 import com.google.web.bindery.event.shared.SimpleEventBus
-import de.xtask.shared.TaskRequestFactory
 
 class XTask implements EntryPoint {
 

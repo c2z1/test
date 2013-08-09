@@ -1,7 +1,8 @@
 package de.xtask.server.locator
 
 import com.google.web.bindery.requestfactory.shared.Locator
-import de.xtask.domain.DatastoreObject
+import de.xtask.server.domain.DatastoreObject
+
 import static de.xtask.server.service.OfyService.*
 
 class ObjectifyLocator extends Locator<DatastoreObject, Long> {

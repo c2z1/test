@@ -12,7 +12,6 @@ import de.xtask.client.presenter.EditTaskPresenter
 import de.xtask.client.presenter.TasksPresenter
 import de.xtask.client.view.EditTaskView
 import de.xtask.client.view.TasksView
-import de.xtask.shared.TaskRequestFactory
 
 class AppController {
 	TaskRequestFactory taskRequestFactory

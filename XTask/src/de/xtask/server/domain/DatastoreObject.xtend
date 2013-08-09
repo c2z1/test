@@ -1,4 +1,4 @@
-package de.xtask.domain
+package de.xtask.server.domain
 
 import javax.persistence.Id
 import javax.persistence.PrePersist

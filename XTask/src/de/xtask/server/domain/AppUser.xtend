@@ -1,6 +1,5 @@
-package de.xtask.domain
+package de.xtask.server.domain
 
-import de.xtask.domain.DatastoreObject
 import javax.persistence.Entity
 
 @Entity

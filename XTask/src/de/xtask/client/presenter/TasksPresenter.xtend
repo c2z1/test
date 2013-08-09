@@ -5,8 +5,8 @@ import com.google.gwt.event.dom.client.HasClickHandlers
 import com.google.gwt.user.client.ui.HasWidgets
 import com.google.gwt.user.client.ui.Widget
 import com.google.web.bindery.event.shared.EventBus
-import de.xtask.shared.TaskProxy
-import de.xtask.shared.TaskRequest
+import de.xtask.client.TaskProxy
+import de.xtask.client.TaskRequest
 import de.xtask.client.event.AddTaskEvent
 import de.xtask.client.event.EditTaskEvent
 import java.util.List
