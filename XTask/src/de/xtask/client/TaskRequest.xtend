@@ -11,7 +11,6 @@ import java.util.List
 interface TaskRequest extends RequestContext {
 	def Request<TaskProxy> findById(Long id)
 	def Request<List<TaskProxy>> findOpenTasks()
-	def Request<Void> persist(TaskProxy task);
-	def Request<Void> remove(TaskProxy task);
-	
+	def Request<Void> persist(TaskProxy task)
+	def Request<Void> removeAll(List<TaskProxy> tasks)
 }

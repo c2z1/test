@@ -29,7 +29,7 @@ class EditTaskPresenter implements Presenter {
 		this.taskRequest = taskRequest;
 		this.eventBus = eventBus;
 		this.display = display;
-		this.task = task
+		this.task = taskRequest.edit(task)
 		display.name.setValue(task.name)
 		display.description.setValue(task.description)
 		bind();
@@ -48,7 +48,7 @@ class EditTaskPresenter implements Presenter {
 	def private void doSave() {
 		task.name = display.getName().getValue()
 		task.description = display.getDescription().getValue()
-		taskRequest.persist(task)
+		taskRequest.persist(task).fire
 		eventBus.fireEvent(new TaskUpdatedEvent)
 	}
 }

@@ -25,7 +25,7 @@ class AppController {
 	}
 
 	def void bind() {
-		History::addValueChangeHandler [handleValueChanged]
+		History::addValueChangeHandler[handleValueChanged]
 
 	    eventBus.addHandler(AddTaskEvent::TYPE, [
 	    	History::newItem("add")
@@ -45,7 +45,7 @@ class AppController {
 		if (token != null) {
 			switch (token) {
 				case "list" :
-					new TasksPresenter(taskRequestFactory.taskRequest, eventBus, new TasksView())
+					new TasksPresenter(taskRequestFactory, eventBus, new TasksView())
 		      	default :
 		        	new EditTaskPresenter(taskRequestFactory.taskRequest, eventBus, new EditTaskView())
 			}.go(container);

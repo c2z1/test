@@ -1,6 +1,6 @@
 package de.xtask.server.domain
 
-import javax.persistence.Entity
+import com.googlecode.objectify.annotation.Entity
 
 @Entity
 class AppUser extends DatastoreObject {

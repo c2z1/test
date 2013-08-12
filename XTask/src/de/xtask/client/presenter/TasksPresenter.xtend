@@ -6,7 +6,7 @@ import com.google.gwt.user.client.ui.HasWidgets
 import com.google.gwt.user.client.ui.Widget
 import com.google.web.bindery.event.shared.EventBus
 import de.xtask.client.TaskProxy
-import de.xtask.client.TaskRequest
+import de.xtask.client.TaskRequestFactory
 import de.xtask.client.event.AddTaskEvent
 import de.xtask.client.event.EditTaskEvent
 import java.util.List
@@ -15,12 +15,12 @@ class TasksPresenter implements Presenter {
 
 	private List<TaskProxy> tasks
 
-	private final TaskRequest taskRequest
+	private final TaskRequestFactory taskRequestFactory
 	private final EventBus eventBus
 	private final TasksDisplay display
 
-	public new(TaskRequest taskRequest, EventBus eventBus, TasksDisplay view) {
-		this.taskRequest = taskRequest
+	public new(TaskRequestFactory taskRequestFactory, EventBus eventBus, TasksDisplay view) {
+		this.taskRequestFactory = taskRequestFactory
 		this.eventBus = eventBus
 		this.display = view
 	}
@@ -37,16 +37,24 @@ class TasksPresenter implements Presenter {
 	}
 	
 	def deleteSelectedTasks() {
-		display.getSelectedRows().forEach[taskRequest.remove(tasks.get(it))]
+		val l = display.getSelectedRows().map[tasks.get(it)]
+		taskRequestFactory.taskRequest.removeAll(l).fire[
+			tasks.removeAll(l)
+			refreshView
+		]
 	}
 
 	override go(HasWidgets container) {
-		bind();
-		container.clear();
-		container.add(display.asWidget());
-		taskRequest.findOpenTasks().fire[List<TaskProxy> resultList |
+		bind
+		container.clear
+		container.add(display.asWidget())
+		taskRequestFactory.taskRequest.findOpenTasks().fire[List<TaskProxy> resultList |
 					tasks = resultList
-					display.setData(tasks.map[name])]
+					refreshView]
+	}
+	
+	def refreshView() {
+		display.setData(tasks.map[name])
 	}
 }
 

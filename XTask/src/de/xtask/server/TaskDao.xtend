@@ -10,15 +10,16 @@ class TaskDao {
 		ofy.save.entity(task).now
 	}
  
-	def void remove(Task task) {
-		ofy.delete.entity(task).now
+	def void removeAll(List<Task> task) {
+		ofy.delete.entities(task).now
 	}
- 
+	
   	def Task findById(Long id) {
-    	return ofy.load.type(typeof(Task)).id(id).now
+    	ofy.load.type(typeof(Task)).id(id).now
   	}
   	
   	def List<Task> findOpenTasks() {
-    	return ofy.load.type(typeof(Task)).filter("name !=", "dsfjkdjfsdfddfdf").list
+    	val l = ofy.load.type(typeof(Task)).list
+    	l
   	}
 }

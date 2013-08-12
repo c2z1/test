@@ -9,8 +9,12 @@ import de.xtask.server.domain.Task;
 
 public class OfyService {
     static {
-        factory().register(AppUser.class);
-        factory().register(Task.class);
+    	try {
+	        factory().register(AppUser.class);
+	        factory().register(Task.class);
+    	} catch (Throwable t) {
+    		t.printStackTrace();
+    	}
     }
 
     public static Objectify ofy() {

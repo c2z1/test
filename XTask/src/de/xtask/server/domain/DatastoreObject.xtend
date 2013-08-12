@@ -1,9 +1,9 @@
 package de.xtask.server.domain
 
-import javax.persistence.Id
-import javax.persistence.PrePersist
+import com.googlecode.objectify.annotation.Id
+import com.googlecode.objectify.annotation.OnSave
 
-class DatastoreObject {
+abstract class DatastoreObject {
  
     @Id
     @Property
@@ -15,8 +15,8 @@ class DatastoreObject {
     /**
      * Auto-increment version # whenever persisted
      */
-    @PrePersist
-    def void onPersist() {
+    @OnSave
+    def void onSave() {
         version = version + 1
     }
 }

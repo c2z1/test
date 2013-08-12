@@ -1,9 +1,11 @@
 package de.xtask.server.domain
 
-import javax.persistence.Entity
 import com.googlecode.objectify.Key
+import com.googlecode.objectify.annotation.Entity
+import com.googlecode.objectify.annotation.Cache
 
 @Entity
+@Cache
 class Task extends DatastoreObject {
 	new() {
 		state = TaskState.NEW
