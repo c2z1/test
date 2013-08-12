@@ -5,7 +5,9 @@ import com.googlecode.objectify.Key
 
 @Entity
 class Task extends DatastoreObject {
-	new() { }
+	new() {
+		state = TaskState.NEW
+	}
 	
 	@Property
 	private String name
@@ -15,4 +17,7 @@ class Task extends DatastoreObject {
 	
 	@Property
 	private Key<AppUser> owner;
+	
+	@Property
+	private TaskState state
 }

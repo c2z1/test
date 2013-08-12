@@ -3,7 +3,7 @@ package de.xtask.server.locator
 import com.google.web.bindery.requestfactory.shared.Locator
 import de.xtask.server.domain.DatastoreObject
 
-import static de.xtask.server.service.OfyService.*
+import static de.xtask.server.OfyService.*
 
 class ObjectifyLocator extends Locator<DatastoreObject, Long> {
     override create(Class<? extends DatastoreObject> clazz) {

@@ -1,2 +1,4 @@
 /xtend-gen
 /gwt-unitCache
+/.gwt
+/.apt_generated

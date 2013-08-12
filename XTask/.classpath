@@ -5,7 +5,6 @@
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/guava-14.0.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/guava-gwt-14.0.1.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.xtend.XTEND_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/GwtAnnotations"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/org.eclipse.xtend.lib_2.4.0.v201303201134.jar"/>
@@ -20,7 +19,12 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/objectify-4.0rc1.jar"/>
-	<classpathentry kind="lib" path="lib/persistence-api-1.0.2.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/objectify-4.0rc1.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/persistence-api-1.0.2.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

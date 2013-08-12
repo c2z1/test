@@ -37,14 +37,14 @@ class TasksPresenter implements Presenter {
 	}
 	
 	def deleteSelectedTasks() {
-		display.getSelectedRows().forEach[taskRequest.remove().using(tasks.get(it))]
+		display.getSelectedRows().forEach[taskRequest.remove(tasks.get(it))]
 	}
 
 	override go(HasWidgets container) {
 		bind();
 		container.clear();
 		container.add(display.asWidget());
-		taskRequest.findAllTasks().fire[List<TaskProxy> resultList |
+		taskRequest.findOpenTasks().fire[List<TaskProxy> resultList |
 					tasks = resultList
 					display.setData(tasks.map[name])]
 	}

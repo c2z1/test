@@ -48,7 +48,7 @@ class EditTaskPresenter implements Presenter {
 	def private void doSave() {
 		task.name = display.getName().getValue()
 		task.description = display.getDescription().getValue()
-		taskRequest.persist().using(task)
+		taskRequest.persist(task)
 		eventBus.fireEvent(new TaskUpdatedEvent)
 	}
 }
