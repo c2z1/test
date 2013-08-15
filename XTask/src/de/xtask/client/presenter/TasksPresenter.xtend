@@ -10,6 +10,7 @@ import de.xtask.client.TaskRequestFactory
 import de.xtask.client.event.AddTaskEvent
 import de.xtask.client.event.EditTaskEvent
 import java.util.List
+import java.util.ArrayList
 
 class TasksPresenter implements Presenter {
 
@@ -37,9 +38,9 @@ class TasksPresenter implements Presenter {
 	}
 	
 	def deleteSelectedTasks() {
-		val l = display.getSelectedRows().map[tasks.get(it)]
-		taskRequestFactory.taskRequest.removeAll(l).fire[
-			tasks.removeAll(l)
+		val selTasks = new ArrayList<TaskProxy>(display.getSelectedRows().map[tasks.get(it)])
+		taskRequestFactory.taskRequest.removeAll(selTasks).fire[
+			tasks.removeAll(selTasks)
 			refreshView
 		]
 	}
@@ -49,8 +50,9 @@ class TasksPresenter implements Presenter {
 		container.clear
 		container.add(display.asWidget())
 		taskRequestFactory.taskRequest.findOpenTasks().fire[List<TaskProxy> resultList |
-					tasks = resultList
-					refreshView]
+					tasks = new ArrayList<TaskProxy>(resultList)
+					refreshView
+				]
 	}
 	
 	def refreshView() {
