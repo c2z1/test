@@ -9,9 +9,9 @@ public class OfyService {
 	static boolean registered = false
 	
     private def static register() {
-	        factory.register(typeof(AppUser))
-	        factory.register(typeof(Task))
-	        registered = true
+        factory.register(typeof(AppUser))
+        factory.register(typeof(Task))
+        registered = true
     }
 
     def static ofy() {
