@@ -6,18 +6,16 @@ import de.xtask.domain.Task
 
 public class OfyService {
 	
-	static boolean isInit = false
+	static boolean registered = false
 	
     private def static register() {
-    	if (isInit) {
-	        isInit = true
 	        factory.register(typeof(AppUser))
 	        factory.register(typeof(Task))
-        }
+	        registered = true
     }
 
     def static ofy() {
-    	register
+    	if (!registered) register
         ObjectifyService.ofy
     }
 
