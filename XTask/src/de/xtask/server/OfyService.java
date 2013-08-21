@@ -4,8 +4,8 @@ import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
 
-import de.xtask.server.domain.AppUser;
-import de.xtask.server.domain.Task;
+import de.xtask.domain.AppUser;
+import de.xtask.domain.Task;
 
 public class OfyService {
     static {

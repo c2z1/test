@@ -1,6 +1,6 @@
 package de.xtask.server
 
-import de.xtask.server.domain.AppUser
+import de.xtask.domain.AppUser
 
 class AppUserService extends com.googlecode.objectify.ObjectifyService {
 	new() {}

@@ -3,7 +3,7 @@ package de.xtask.server
 import com.google.appengine.api.datastore.PreparedQuery.TooManyResultsException
 import com.google.appengine.api.users.UserServiceFactory
 import com.google.web.bindery.requestfactory.server.RequestFactoryServlet
-import de.xtask.server.domain.AppUser
+import de.xtask.domain.AppUser
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 

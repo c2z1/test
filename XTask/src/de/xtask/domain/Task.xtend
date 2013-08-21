@@ -1,8 +1,8 @@
-package de.xtask.server.domain
+package de.xtask.domain
 
 import com.googlecode.objectify.Key
-import com.googlecode.objectify.annotation.Entity
 import com.googlecode.objectify.annotation.Cache
+import com.googlecode.objectify.annotation.Entity
 
 @Entity
 @Cache
@@ -18,7 +18,7 @@ class Task extends DatastoreObject {
 	private String description
 	
 	@Property
-	private Key<AppUser> owner;
+	private Key<AppUser> assignedTo;
 	
 	@Property
 	private TaskState state

@@ -1,6 +1,6 @@
 package de.xtask.server
 
-import de.xtask.server.domain.Task
+import de.xtask.domain.Task
 import java.util.List
 
 import static de.xtask.server.OfyService.*
@@ -19,7 +19,6 @@ class TaskDao {
   	}
   	
   	def List<Task> findOpenTasks() {
-    	val l = ofy.load.type(typeof(Task)).list
-    	l
+    	ofy.load.type(typeof(Task)).list
   	}
 }

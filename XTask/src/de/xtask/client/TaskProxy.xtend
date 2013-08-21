@@ -2,7 +2,7 @@ package de.xtask.client
 
 import com.google.web.bindery.requestfactory.shared.EntityProxy
 import com.google.web.bindery.requestfactory.shared.ProxyFor
-import de.xtask.server.domain.Task
+import de.xtask.domain.Task
 import de.xtask.server.locator.ObjectifyLocator
 
 @ProxyFor(value = typeof(Task), locator = typeof(ObjectifyLocator))

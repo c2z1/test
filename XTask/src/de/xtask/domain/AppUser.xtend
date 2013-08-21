@@ -1,4 +1,4 @@
-package de.xtask.server.domain
+package de.xtask.domain
 
 import com.googlecode.objectify.annotation.Entity
 

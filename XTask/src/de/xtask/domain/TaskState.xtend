@@ -1,4 +1,4 @@
-package de.xtask.server.domain
+package de.xtask.domain
 
 enum TaskState {
 	NEW, RESOLVED}
