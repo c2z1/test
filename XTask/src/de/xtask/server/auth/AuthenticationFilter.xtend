@@ -1,4 +1,4 @@
-package de.xtask.server.servlet
+package de.xtask.server.auth
 
 import com.google.appengine.api.users.UserServiceFactory
 import de.xtask.server.LoginService

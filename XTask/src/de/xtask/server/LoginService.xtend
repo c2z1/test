@@ -2,7 +2,6 @@ package de.xtask.server
 
 import com.google.appengine.api.datastore.PreparedQuery.TooManyResultsException
 import com.google.appengine.api.users.UserServiceFactory
-import com.google.web.bindery.requestfactory.server.RequestFactoryServlet
 import de.xtask.domain.AppUser
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
@@ -23,8 +22,11 @@ class LoginService {
         }
 
         def static AppUser getLoggedInUser() {
-                return RequestFactoryServlet::getThreadLocalRequest()
-                                .getAttribute(AUTH_USER) as AppUser
+        		val userService = UserServiceFactory.getUserService()
+        		println("User: " + userService.currentUser.authDomain)
+        		null
+//        		findUser(userService.currentUser.authDomain)
+//                return RequestFactoryServlet.getThreadLocalRequest().getAttribute(AUTH_USER) as AppUser
         }
 
         def private static AppUser findUser(String userEmail) {

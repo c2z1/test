@@ -31,6 +31,29 @@ class GwtEventProcessor implements TransformationParticipant<MutableClassDeclara
 			
 			cl.setExtendedClass(context.newTypeReference('com.google.gwt.event.shared.GwtEvent', interfaceRef))
 			
+			if (!cl.declaredFields.empty) { // zustandsbehaftetes Event
+				cl.addConstructor[c|
+					cl.declaredFields.forEach[field|c.addParameter(field.simpleName, field.type)]
+					c.body = ['''
+						«FOR f: cl.declaredFields»
+							this.«f.simpleName» = «f.simpleName»;
+						«ENDFOR»
+						''']
+				]
+				cl.declaredFields.forEach[field|
+					cl.addMethod('get' + field.simpleName.toFirstUpper) [
+						setReturnType(field.type)
+						body = ['''
+							return «field.simpleName»;''']
+					]
+					cl.addField(field.simpleName) [
+						type = field.type
+						visibility = field.visibility
+					]
+					field.remove
+				]
+			}
+			
 			cl.addField('TYPE') [
 				type = typeTypeRef
 				static = true

@@ -1,8 +1,9 @@
 package de.xtask.server
 
 import de.xtask.domain.AppUser
+import static de.xtask.server.OfyService.*
 
-class AppUserService extends com.googlecode.objectify.ObjectifyService {
+class AppUserService {
 	new() {}
 	
 	def getByEmail(String string) {
