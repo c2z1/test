@@ -9,24 +9,28 @@ import de.xtask.client.TaskProxy
 import de.xtask.client.TaskRequest
 import de.xtask.client.event.EditTaskCancelledEvent
 import de.xtask.client.event.TaskUpdatedEvent
+import de.xtask.client.TaskListProxy
+import de.xtask.client.TaskRequestFactory
 
 class EditTaskPresenter implements Presenter {
 
 	var TaskProxy task
+	var TaskListProxy taskList
 	val TaskRequest taskRequest
 	val EventBus eventBus
 	val EditTaskDisplay display
 
-	public new(TaskRequest taskRequest, EventBus eventBus, EditTaskDisplay display) {
-		this.taskRequest = taskRequest;
+	public new(TaskRequestFactory taskRequestFactory, EventBus eventBus, EditTaskDisplay display, TaskListProxy taskList) {
+		this.taskRequest = taskRequestFactory.taskRequest;
 		this.eventBus = eventBus;
 		this.task = taskRequest.create(typeof(TaskProxy));
+		this.taskList = taskList
 		this.display = display;
 		bind();
 	}
 
-	public new(TaskRequest taskRequest, EventBus eventBus, EditTaskDisplay display, TaskProxy task) {
-		this.taskRequest = taskRequest;
+	public new(TaskRequestFactory taskRequestFactory, EventBus eventBus, EditTaskDisplay display, TaskProxy task) {
+		this.taskRequest = taskRequestFactory.taskRequest;
 		this.eventBus = eventBus;
 		this.display = display;
 		this.task = taskRequest.edit(task)
@@ -49,6 +53,7 @@ class EditTaskPresenter implements Presenter {
 		task.name = display.getName().getValue()
 		task.description = display.getDescription().getValue()
 		taskRequest.persist(task).fire
+		
 		eventBus.fireEvent(new TaskUpdatedEvent)
 	}
 }

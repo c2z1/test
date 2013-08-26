@@ -49,10 +49,14 @@ class TasksPresenter implements Presenter {
 		bind
 		container.clear
 		container.add(display.asWidget())
-		taskRequestFactory.taskRequest.findOpenTasks().fire[List<TaskProxy> resultList |
-					tasks = new ArrayList<TaskProxy>(resultList)
-					refreshView
-				]
+		taskRequestFactory.taskListRequest.createOrGetTaskList().with("tasks").fire[
+				tasks = getTasks ?: newArrayList()
+				refreshView
+			]
+//		taskRequestFactory.taskRequest.findOpenTasks().fire[List<TaskProxy> resultList |
+//				tasks = new ArrayList<TaskProxy>(resultList)
+//				refreshView
+//			]
 	}
 	
 	def refreshView() {

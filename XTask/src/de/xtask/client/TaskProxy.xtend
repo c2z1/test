@@ -6,7 +6,6 @@ import de.xtask.domain.Task
 import de.xtask.server.locator.ObjectifyLocator
 
 @ProxyFor(value = typeof(Task), locator = typeof(ObjectifyLocator))
-@SuppressWarnings("all")
 public interface TaskProxy extends EntityProxy {
   def String getDescription();
   

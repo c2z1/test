@@ -31,7 +31,7 @@ class AppController {
 
 	    eventBus.addHandler(AddTaskEvent.TYPE, [
 	    	History.newItem("add")
-	    	new EditTaskPresenter(taskRequestFactory.taskRequest, eventBus, new EditTaskView()).go(container);
+	    	new EditTaskPresenter(taskRequestFactory, eventBus, new EditTaskView()).go(container);
 	    ])
 	    eventBus.addHandler(EditTaskEvent.TYPE, [
 	    	History.newItem("edit", false)

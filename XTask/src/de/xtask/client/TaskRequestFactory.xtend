@@ -9,5 +9,6 @@ import de.xtask.server.TaskDao
 interface TaskRequestFactory extends RequestFactory {
 	
 	def TaskRequest taskRequest()
+	def TaskListRequest taskListRequest()
 	
 }

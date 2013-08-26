@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>  
+    <title>DMI-Forecast</title>
+	<style type="text/css">
+		.Button { background-color:#aaa; color:#fff; width:100px; height:30px; border:2px solid #ddd; font-size:20px}
+	</style>
+	<script>
+		Date.prototype.addHours = function(h) {    
+			this.setTime(this.getTime() + (h*60*60*1000)); 
+			return this;   
+		}
+		var Wochentag = new Array("Sonntag", "Montag", "Dienstag", "Mittwoch",
+                          "Donnerstag", "Freitag", "Samstag");
+						  
+		var date = new Date();
+		
+		function zweistellig(zahl) {
+			if (zahl > 9) return "" + zahl 
+			else return "0" + zahl
+		}
+		function dateStr(dateParam) {
+			return (dateParam.getYear()+1900) + zweistellig(dateParam.getMonth()+1) 
+					+ dateParam.getDate() + "_" + zweistellig(dateParam.getHours()) + "00";
+		}
+		function imageLink(type) {
+			return "http://www.dmi.dk/fileadmin/SeaForecast/vestlige_osterso/" + type + ".20130826_0600." + dateStr(date) + ".png"
+		}
+		function next(count) {
+			date.addHours(count);
+			display();
+		}
+		function display() {
+			document.getElementById("Wind").src=imageLink("Wind");
+			document.getElementById("WindDirection").src=imageLink("WindDirection");
+			document.getElementById("label").innerHTML="\t" + Wochentag[date.getDay()] + " , " +
+				+ date.getDate() + "." + (date.getMonth()+1) + "." + (date.getYear()+1900) + " - " + date.getHours() + ":00" 
+				;//+ "   " + dateStr(date);
+		}
+	</script>
+</head>
+<body class="fullpage">
+	<div class="imageWrapper">
+		<div style="position: absolute; z-index:1"><img id="Wind" class="overlayImage"></div> 
+		<div style="position: relative; z-index:2"><img id="WindDirection" class="overlayImage"></div> 
+	</div>
+	<input type="submit" class="Button" value="<<" onclick="next(-5)">
+	<input type="submit" class="Button" value="<" onclick="next(-1)">
+	<input type="submit" class="Button" value=">" onclick="next(1)">
+	<input type="submit" class="Button" value=">>" onclick="next(5)">
+	<label>&nbsp;&nbsp;&nbsp;&nbsp;</label>
+	<label id="label"></label>
+	<script>
+		display();
+	</script>
+</body>
+</html>
