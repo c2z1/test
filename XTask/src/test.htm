@@ -15,6 +15,15 @@
 						  
 		var date = new Date();
 		
+		var lastRefresh = initLastRefresh(date);
+		
+		function initLastRefresh(_date) {
+			var h = _date.getHours() - 8;
+			var ret = new Date();
+			ret = ret.setHours(h-h%6);
+			return ret;
+		}
+		
 		function zweistellig(zahl) {
 			if (zahl > 9) return "" + zahl 
 			else return "0" + zahl
@@ -24,7 +33,7 @@
 					+ dateParam.getDate() + "_" + zweistellig(dateParam.getHours()) + "00";
 		}
 		function imageLink(type) {
-			return "http://www.dmi.dk/fileadmin/SeaForecast/vestlige_osterso/" + type + ".20130826_0600." + dateStr(date) + ".png"
+			return "http://www.dmi.dk/fileadmin/SeaForecast/vestlige_osterso/" + type + "." + dateStr(lastRefresh) + "." + dateStr(date) + ".png"
 		}
 		function next(count) {
 			date.addHours(count);
