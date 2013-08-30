@@ -11,23 +11,28 @@ import de.xtask.client.event.AddTaskEvent
 import de.xtask.client.event.EditTaskEvent
 import java.util.List
 import java.util.ArrayList
+import de.xtask.client.TaskListProxy
 
 class TasksPresenter implements Presenter {
-
-	private List<TaskProxy> tasks
 
 	private final TaskRequestFactory taskRequestFactory
 	private final EventBus eventBus
 	private final TasksDisplay display
+	
+	TaskListProxy taskList
 
 	public new(TaskRequestFactory taskRequestFactory, EventBus eventBus, TasksDisplay view) {
 		this.taskRequestFactory = taskRequestFactory
 		this.eventBus = eventBus
 		this.display = view
 	}
+	
+	private def getTasks() {
+		taskList.tasks
+	}
 
 	def void bind() {
-		display.getAddButton().addClickHandler[eventBus.fireEvent(new AddTaskEvent())]
+		display.getAddButton().addClickHandler[eventBus.fireEvent(new AddTaskEvent(taskList))]
 		display.getDeleteButton().addClickHandler[deleteSelectedTasks]
 		display.getList().addClickHandler[clickEvent|
 			val selectedRow = display.getClickedRow(clickEvent)
@@ -50,7 +55,7 @@ class TasksPresenter implements Presenter {
 		container.clear
 		container.add(display.asWidget())
 		taskRequestFactory.taskListRequest.createOrGetTaskList().with("tasks").fire[
-				tasks = getTasks ?: newArrayList()
+				taskList = it
 				refreshView
 			]
 //		taskRequestFactory.taskRequest.findOpenTasks().fire[List<TaskProxy> resultList |

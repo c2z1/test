@@ -31,11 +31,11 @@ class AppController {
 
 	    eventBus.addHandler(AddTaskEvent.TYPE, [
 	    	History.newItem("add")
-	    	new EditTaskPresenter(taskRequestFactory, eventBus, new EditTaskView()).go(container);
+	    	new EditTaskPresenter(taskRequestFactory, eventBus, new EditTaskView(), taskList).go(container)
 	    ])
 	    eventBus.addHandler(EditTaskEvent.TYPE, [
 	    	History.newItem("edit", false)
-    		new EditTaskPresenter(taskRequestFactory.taskRequest, eventBus, new EditTaskView(), task).go(container);
+    		new EditTaskPresenter(taskRequestFactory, eventBus, new EditTaskView(), task).go(container)
 	    ])
 	    eventBus.addHandler(TaskUpdatedEvent.TYPE, [History.newItem("list")])
 	    eventBus.addHandler(EditTaskCancelledEvent.TYPE, [History.newItem("list")])
@@ -43,25 +43,25 @@ class AppController {
 	}
 
 	def private handleValueChanged(ValueChangeEvent<String> event) {
-		val token = event.getValue();
+		val token = event.getValue()
 
 		if (token != null) {
 			switch (token) {
 				case "list" :
 					new TasksPresenter(taskRequestFactory, eventBus, new TasksView())
-		      	default :
-		        	new EditTaskPresenter(taskRequestFactory.taskRequest, eventBus, new EditTaskView())
-			}.go(container);
+	//		      	default :
+	//		        	new EditTaskPresenter(taskRequestFactory, eventBus, new EditTaskView())
+			}.go(container)
 		}
 	}
 
 	def go(HasWidgets container) {
-		this.container = container;
+		this.container = container
 
 		if ("" == History.getToken()) {
-			History.newItem("list");
+			History.newItem("list")
 		} else {
-			History.fireCurrentHistoryState();
+			History.fireCurrentHistoryState()
 		}
 	}
 }

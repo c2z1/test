@@ -24,7 +24,9 @@ class EditTaskPresenter implements Presenter {
 		this.taskRequest = taskRequestFactory.taskRequest;
 		this.eventBus = eventBus;
 		this.task = taskRequest.create(typeof(TaskProxy));
-		this.taskList = taskList
+		taskRequestFactory.taskListRequest.createOrGetTaskList.fire[
+			this.taskList = it	
+		]
 		this.display = display;
 		bind();
 	}
