@@ -4,10 +4,36 @@
 	<meta charset="UTF-8">
     <title>DMI-Forecast</title>
 	<style type="text/css">
-		.Button { background-color:#aaa; color:#fff; width:78px; height:40px; border:2px solid #ddd; 
-				border-radius:10px; font: 18px Georgia, serif; padding-bottom: 5px}
-		label {color: #555; font: 16px Georgia, serif}
-		#arrow {font-weight: bolder}
+		.Button { 
+			background-color:#aaa; 
+			color:#fff; 
+			width:78px; 
+			height:30px; 
+			border:2px solid #ddd; 
+			border-radius:10px; 
+			font: 18px Georgia, serif; 
+			padding-bottom: 5px
+		}
+		#datelabel {
+			display: inline-block;
+			text-align:center; 
+			padding-top: 3px;
+			vertical-align:top; 
+			color: #555; 
+			font: 16px Georgia, serif; 
+			width: 210px; 
+			height: 23px; 
+			border:2px solid #ddd; 
+			border-radius:10px;
+		}
+		.arrowbutton {
+			font-weight: bolder
+		}
+		#navslider {
+			display: block; 
+			width:640px; 
+			height:40px;
+		}
 		.sliderpart {
 			height: 30px;
 			display: block;
@@ -17,7 +43,6 @@
 		}
 	</style>
 	<script>
-//		width: 10px; height: 20px; position: relative; top: -1px; left: 10px; background-color: red; border:1px solid black}
 		Date.prototype.addHours = function(h) {    
 			this.setTime(this.getTime() + (h*60*60*1000)); 
 			return this;   
@@ -62,7 +87,6 @@
 		}
 	
 		function initSlider() {
-			var docFrag = document.createDocumentFragment();
 			for (var i = 0; i < ImageCount; i++) {
 				var div = document.createElement("div");
 				div.className = "sliderpart";
@@ -82,9 +106,8 @@
 					e.preventDefault()
 					setActImage(nr)
 				}
-				docFrag.appendChild(div);
+				document.getElementById("navslider").appendChild(div);
 			}
-			document.body.appendChild(docFrag);
 		}
 		
 		function setActImage(nr) {
@@ -135,7 +158,7 @@
 		function display() {
 			document.getElementById("Wind").src = imageLink("Wind", lastRefresh, actualImageDate)
 			document.getElementById("WindDirection").src = imageLink("WindDirection", lastRefresh, actualImageDate)
-			document.getElementById("label").innerHTML = Wochentag[actualImageDate.getDay()] + ", "
+			document.getElementById("datelabel").innerHTML = Wochentag[actualImageDate.getDay()] + ", "
 					+ dateDisplStr(actualImageDate) + "   "
 			// scrollbar aktualisiseren
 		}
@@ -209,20 +232,23 @@
 		<div style="position: absolute; z-index:1"><img id="Wind" class="overlayImage"></div> 
 		<div style="position: relative; z-index:2"><img id="WindDirection" class="overlayImage"></div> 
 	</div>
-	<input type="submit" id = "arrow" class="Button" value="<<" onclick="next(-5)"/>
-	<input type="submit" id = "arrow" class="Button" value="<" onclick="next(-1)"/>
-	<input type="submit" id = "arrow" class="Button" value=">" onclick="next(1)"/>
-	<input type="submit" id = "arrow" class="Button" value=">>" onclick="next(5)"/>
-	<label>&nbsp;</label>
-	<label id="label" style =></label>
-	<label>&nbsp;</label>
-	<input type="submit" class="Button" title="Zeit der Vorhersageberechnung" id="refreshDateBtn" onclick="testRefresh()"/>
+	<div id="navslider">
+	</div>
+	<div>
+		<input type="submit" class="arrowbutton Button" value="<<" onclick="next(-5)"/>
+		<input type="submit" class="arrowbutton Button" value="<" onclick="next(-1)"/>
+		<input type="submit" class="arrowbutton Button" value=">" onclick="next(1)"/>
+		<input type="submit" class="arrowbutton Button" value=">>" onclick="next(5)"/>
+		<label>&nbsp;</label>
+		<label id="datelabel"></label>
+		<label>&nbsp;</label>
+		<input type="submit" class="Button" style="align: right" title="Zeit der Vorhersageberechnung" id="refreshDateBtn" onclick="testRefresh()"/>
+	</div>
 	<br>
 	<script>
 		init();
 	</script>
 	<br>
 	<label id="print"></label>
-	
 </body>
 </html>
