@@ -9,7 +9,7 @@
 		label {color: #555; font: 16px Georgia, serif}
 		#arrow {font-weight: bolder}
 		.sliderpart {
-			width: 13px; height: 30px;
+			height: 30px;
 			display: block;
     		position: relative;
     		float: left;
@@ -38,6 +38,7 @@
 		
 		var FirstImgDelay = 8;
 		var ImageCount = 49;
+		var SliderPartWidth = 13;
 		
 		function init() {
 			initActualImageDate();
@@ -65,6 +66,7 @@
 			for (var i = 0; i < ImageCount; i++) {
 				var div = document.createElement("div");
 				div.className = "sliderpart";
+				div.style.width = SliderPartWidth + "px";
 				div.id = i;
 				div.onmouseover = function() {
 					this.style.backgroundColor="#555";
@@ -73,6 +75,12 @@
 				}
 				div.onmouseout = function() {
 					this.style.backgroundColor="#aaa";
+				}
+				div.ontouchstart = function(e) {
+					var img = e.touches[0].screenX / SliderPartWidth
+					e.stopPropagation()
+					e.preventDefault()
+					setActImage(nr)
 				}
 				docFrag.appendChild(div);
 			}
@@ -99,7 +107,7 @@
 		
 		function dateUrlStr(dateParam) {
 			return dateParam.getFullYear() + zweistellig(dateParam.getMonth()+1) 
-					+ dateParam.getDate() + "_" + zweistellig(dateParam.getHours()) + "00"
+					+ zweistellig(dateParam.getDate()) + "_" + zweistellig(dateParam.getHours()) + "00"
 		}
 		
 		function imageLink(type, refreshDate, imgDate) {
