@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style type="text/css">
+	<style type="text/css">
 		.Button { background-color:#aaa; color:#fff; width:78px; height:40px; border:2px solid #ddd; 
 				border-radius:10px; font: 18px Georgia, serif; padding-bottom: 5px}
-		label {color: #555; font: 16px Georgia, serif}
-		#arrow {font-weight: bolder}
+		#datelabel {color: #555; font: 16px Georgia, serif; width:300px}
+		.arrowbtn {font-weight: bolder}
+		#imageDiv {style=display: block; width:640px; height:400px}
+		#navslider {display: block; width:640px; height:40px}
+		#navbutton {display: block; width:640px; height:40px}
 		.sliderpart {
-			width: 13px; height: 30px;
+			height: 30px;
 			display: block;
     		position: relative;
     		float: left;
     		background-color: #aaa;
 		}
 	</style>
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
 	$(function(){
+		$()
 
 	}); 
 
@@ -26,10 +31,10 @@
 		<div style="position: absolute; z-index:1"><img id="Wind" class="overlayImage"></div> 
 		<div style="position: relative; z-index:2"><img id="WindDirection" class="overlayImage"></div> 
 	</div>
-	<input type="submit" id = "arrow" class="Button" value="<<" onclick="next(-5)"/>
-	<input type="submit" id = "arrow" class="Button" value="<" onclick="next(-1)"/>
-	<input type="submit" id = "arrow" class="Button" value=">" onclick="next(1)"/>
-	<input type="submit" id = "arrow" class="Button" value=">>" onclick="next(5)"/>
+	<input type="submit" class="arrowbtn Button" value="<<" onclick="next(-5)"/>
+	<input type="submit" class="arrowbtn Button" value="<" onclick="next(-1)"/>
+	<input type="submit" class="arrowbtn Button" value=">" onclick="next(1)"/>
+	<input type="submit" class="arrowbtn Button" value=">>" onclick="next(5)"/>
 	<label>&nbsp;</label>
 	<label id="label" style =></label>
 	<label>&nbsp;</label>
