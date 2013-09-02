@@ -71,7 +71,7 @@
 				}
 				div.ontouchstart = function(e) {
 					var imgNo = e.touches[0].screenX / SliderPartWidth
-					setActImage(imageNo)
+					setActImage(imgNo)
 					e.stopPropagation()
 					e.preventDefault()
 				}
