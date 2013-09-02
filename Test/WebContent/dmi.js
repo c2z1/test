@@ -122,8 +122,9 @@
 			var imgDate = getDate(lastRefresh, actualImageNo)
 			document.getElementById("Wind").src = imageLink("Wind", lastRefresh, imgDate)
 			document.getElementById("WindDirection").src = imageLink("WindDirection", lastRefresh, imgDate)
-			document.getElementById("datelabel").innerHTML = Wochentag[imgDate.getDay()] + ", "
-					+ dateDisplStr(imgDate.addHours(2)) + "   "
+			var displayDate = imgDate.addHours(2)
+			document.getElementById("datelabel").innerHTML = Wochentag[displayDate.getDay()] + ", "
+					+ dateDisplStr(displayDate) + "   "
 		}
 		
 		function preloadImage(imgNo) {

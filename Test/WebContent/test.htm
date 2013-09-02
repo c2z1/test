@@ -44,7 +44,8 @@
 		#navslider {
 			display: block; 
 			width:640px; 
-			height:40px
+			height:40px;
+			
 			}
 		#navbutton {
 			display: block; 
@@ -176,8 +177,9 @@
 			var imgDate = getDate(lastRefresh, actualImageNo)
 			document.getElementById("Wind").src = imageLink("Wind", lastRefresh, imgDate)
 			document.getElementById("WindDirection").src = imageLink("WindDirection", lastRefresh, imgDate)
-			document.getElementById("datelabel").innerHTML = Wochentag[imgDate.getDay()] + ", "
-					+ dateDisplStr(imgDate.addHours(2)) + "   "
+			var displayDate = imgDate.addHours(2)
+			document.getElementById("datelabel").innerHTML = Wochentag[displayDate.getDay()] + ", "
+					+ dateDisplStr(displayDate) + "   "
 		}
 		
 		function preloadImage(imgNo) {
