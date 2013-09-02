@@ -4,46 +4,75 @@
 	<meta charset="UTF-8">
     <title>DMI-Forecast</title>
 	<style type="text/css">
-		.Button { background-color:#aaa; color:#fff; width:78px; height:40px; border:2px solid #ddd; 
-				border-radius:10px; font: 18px Georgia, serif; padding-bottom: 5px}
-		#datelabel {color: #555; font: 16px Georgia, serif; width:300px}
-		.arrowbtn {font-weight: bolder}
-		#imageDiv {style=display: block; width:640px; height:400px}
-		#navslider {display: block; width:640px; height:40px}
-		#navbutton {display: block; width:640px; height:40px}
+		.Button { 
+			background-color:#aaa; 
+			color:#fff; 
+			width:78px; 
+			height:30px; 
+			border:2px solid #ddd; 
+			border-radius:10px; 
+			font: 18px Georgia, serif; 
+			padding-bottom: 5px
+			}
+		.arrowbtn {
+			font-weight: bolder
+			}
 		.sliderpart {
 			height: 30px;
 			display: block;
-    		position: relative;
-    		float: left;
-    		background-color: #aaa;
-		}
-	</style>
+		  	position: relative;
+		  	float: left;
+		  	background-color: #aaa;
+			}
+		#datelabel {
+			display: inline-block;
+			text-align:center; 
+			padding-top: 3px;
+			vertical-align:top; 
+			color: #555; 
+			font: 16px Georgia, serif; 
+			width: 210px; 
+			height: 23px; 
+			border:2px solid #ddd; 
+			border-radius:10px;
+			}
+		#imageDiv {
+			display: block; 
+			width:640px; 
+			height:400px
+			}
+		#navslider {
+			display: block; 
+			width:640px; 
+			height:40px
+			}
+		#navbutton {
+			display: block; 
+			width:640px; 
+			height:40px
+	}	</style>
 	<script>
-//		width: 10px; height: 20px; position: relative; top: -1px; left: 10px; background-color: red; border:1px solid black}
-		Date.prototype.addHours = function(h) {    
-			this.setTime(this.getTime() + (h*60*60*1000)); 
-			return this;   
-		}
-		Date.prototype.copy = function() {
-			ret = new Date()
-			ret.setTime(this.getTime()); 
+		Date.prototype.addHours = function(h) {
+			var ret = new Date()
+			ret.setTime(this.getTime() + (h*60*60*1000)); 
 			return ret;   
 		}
 		Wochentag = new Array("Sonntag", "Montag", "Dienstag", "Mittwoch",
-                          "Donnerstag", "Freitag", "Samstag");
+	                      "Donnerstag", "Freitag", "Samstag");
 						  
-		var actualImageNo;
+		var actualImageNo = 0;
 		
 		var lastRefresh;
 		
-		var FirstImgDelay = 8;
+		var FirstImgDelay = 6;
 		var ImageCount = 49;
 		var SliderPartWidth = 13;
+		var lastSliderPos = -1;
+		
+		var SliderPartName = "sliderpart";
 		
 		function init() {
-			initActualImageDate();
-			
+			initSlider();
 			var now = new Date()
 			var hours = now.getHours();
 			if (hours < 2) {
@@ -60,11 +89,10 @@
 			}
 			initLastRefreshAndDisplay(now.addHours(-hours-6));
 			
-			initSlider();
 		}
-
+	
 		function initLastRefreshAndDisplay(date) {
-			var nextVal = date.copy().addHours(6)
+			var nextVal = date.addHours(6)
 			img = new Image()
 			img.onload = function() {
 				setLastRefresh(nextVal)
@@ -73,45 +101,46 @@
 			img.onerror = function() {
 				initLastRefreshAndDisplay(date.addHours(-6))
 			}
-			img.src = imageLink("Wind", nextVal, actualImageDate)
+			img.src = imageLink("Wind", nextVal, getDate(nextVal, actualImageNo))
 		}
 		
 		function initSlider() {
 			for (var i = 0; i < ImageCount; i++) {
 				var div = document.createElement("div");
-				div.className = "sliderpart";
+				div.className = SliderPartName;
 				div.style.width = SliderPartWidth + "px";
-				div.id = i;
+				div.id = "" + i
 				div.onmouseover = function() {
-					this.style.backgroundColor="#555";
 					var nr = parseInt(this.id);
 					setActImage(nr);
 				}
-				div.onmouseout = function() {
-					this.style.backgroundColor="#aaa";
-				}
-				div.ontouchstart = function(e) {
+				div.ontouchmove = function(e) {
 					var imgNo = e.touches[0].screenX / SliderPartWidth
-					setActImage(imageNo)
+					setActImage(imgNo.toFixed() - 1)
 					e.stopPropagation()
 					e.preventDefault()
 				}
 				document.getElementById('navslider').appendChild(div);
 			}
-			document.body.appendChild(docFrag);
+		}
+		function displaySliderPos(imgNo) {
+			if (lastSliderPos >= 0) {
+				getSliderPart(lastSliderPos).style.backgroundColor="#aaa"
+			}
+			getSliderPart(imgNo).style.backgroundColor="#555"
+			lastSliderPos = imgNo;
+		}
+		
+		function getSliderPart(no) {
+			return document.getElementById("" + no)
 		}
 		
 		function setActImage(nr) {
-			actualImageDate = lastImage.copy();
-			actualImageDate.addHours(-(ImageCount-nr));
-			display();
-		}
-		
-		function initActualImageDate() {
-			actualImageDate = new Date();
-			actualImageDate.setMilliseconds(0);
-			actualImageDate.setSeconds(0);
-			actualImageDate.setMinutes(0);
+			if (nr != actualImageNo) {
+	//			print('image ' + nr)
+				actualImageNo = nr
+				display();
+			}
 		}
 		
 		function zweistellig(zahl) {
@@ -125,20 +154,16 @@
 		}
 		
 		function imageLink(type, refreshDate, imgDate) {
-			if (imgDate > lastImage) {
-				
-			}
-			adjustedImageDate = imgDate.copy().addHours(-2)
 			return "http://www.dmi.dk/fileadmin/SeaForecast/vestlige_osterso/" + type 
-					+ "." + dateUrlStr(refreshDate) + "." + dateUrlStr(adjustedImageDate) + ".png"
+					+ "." + dateUrlStr(refreshDate) + "." + dateUrlStr(imgDate) + ".png"
+		}
+		
+		function getDate(refreshDate, imgNo) {
+			return refreshDate.addHours(FirstImgDelay + imgNo)
 		}
 		
 		function nextImage(count) {
-			actualImageDate.addHours(count)
-			if (actualImageDate > lastImage) {
-				initActualImageDate()
-			}
-			display()
+			setActImage(actualImageNo + count)
 		}
 		
 		function dateDisplStr(date) {
@@ -147,36 +172,28 @@
 		}
 		
 		function display() {
-			document.getElementById("Wind").src = imageLink("Wind", lastRefresh, actualImageDate)
-			document.getElementById("WindDirection").src = imageLink("WindDirection", lastRefresh, actualImageDate)
-			document.getElementById("datelabel").innerHTML = Wochentag[actualImageDate.getDay()] + ", "
-					+ dateDisplStr(actualImageDate) + "   "
-			// scrollbar aktualisiseren
+			displaySliderPos(actualImageNo)
+			var imgDate = getDate(lastRefresh, actualImageNo)
+			document.getElementById("Wind").src = imageLink("Wind", lastRefresh, imgDate)
+			document.getElementById("WindDirection").src = imageLink("WindDirection", lastRefresh, imgDate)
+			document.getElementById("datelabel").innerHTML = Wochentag[imgDate.getDay()] + ", "
+					+ dateDisplStr(imgDate.addHours(2)) + "   "
 		}
 		
-		function preloadImage(tmpDate) {
-			if (tmpDate <= lastImage) {
-				img = new Image()
-				img.src = imageLink("Wind", lastRefresh, tmpDate)
-				img = new Image()
-				img.src = imageLink("WindDirection", lastRefresh, tmpDate)
-			}
+		function preloadImage(imgNo) {
+			var tmpDate = getDate(lastRefresh, i)
+			new Image().src = imageLink("Wind", lastRefresh, tmpDate)
+			new Image().src = imageLink("WindDirection", lastRefresh, tmpDate)
 		}
-		
-		/*function preloadNext(count) {
-			var tmpDate = actualImageDate.copy()
-			for (var i = 1; i <= count; i++) {
-				tmpDate.addHours(1)
-				preload(tmpDate)
-			}
-		}*/
 		
 		function loadAllImages() {
-			var tmpDate = getFirstImageDate()
 			for (var i = 1; i <= ImageCount; i++) {
-				tmpDate.addHours(1)
-				preload(tmpDate)
+				preload(i)
 			}
+		}
+		
+		function getFirstImgDate() {
+			return lastImage.addHours(-ImageCount)
 		}
 		
 		function setLastRefresh(val) {
@@ -185,8 +202,8 @@
 		}
 		
 		function testRefresh() {
- 			var newRefresh = lastRefresh.copy().addHours(6)
-			img = new Image()
+				var newRefresh = lastRefresh.addHours(6)
+			var img = new Image()
 			img.onload = function() {
 				setLastRefresh(newRefresh)
 				display()

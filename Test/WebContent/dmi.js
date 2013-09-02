@@ -60,9 +60,9 @@
 					var nr = parseInt(this.id);
 					setActImage(nr);
 				}
-				div.ontouchstart = function(e) {
+				div.ontouchmove = function(e) {
 					var imgNo = e.touches[0].screenX / SliderPartWidth
-					setActImage(imgNo)
+					setActImage(imgNo.toFixed() - 1)
 					e.stopPropagation()
 					e.preventDefault()
 				}
@@ -82,9 +82,11 @@
 		}
 		
 		function setActImage(nr) {
-			print('image ' + nr)
-			actualImageNo = nr
-			display();
+			if (nr != actualImageNo) {
+	//			print('image ' + nr)
+				actualImageNo = nr
+				display();
+			}
 		}
 		
 		function zweistellig(zahl) {
@@ -147,7 +149,7 @@
 		
 		function testRefresh() {
  			var newRefresh = lastRefresh.addHours(6)
-			img = new Image()
+			var img = new Image()
 			img.onload = function() {
 				setLastRefresh(newRefresh)
 				display()
