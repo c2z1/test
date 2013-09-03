@@ -155,7 +155,7 @@
 				setLastRefresh(newRefresh)
 				display()
 			}
-			img.src = imageLink("Wind", newRefresh, actualImageDate)
+			img.src = imageLink("Wind", newRefresh, getDate(lastRefresh, actualImageNo))
 		}
 		
 		function print(str) {
