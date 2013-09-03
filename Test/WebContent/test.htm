@@ -204,13 +204,13 @@
 		}
 		
 		function testRefresh() {
-				var newRefresh = lastRefresh.addHours(6)
+ 			var newRefresh = lastRefresh.addHours(6)
 			var img = new Image()
 			img.onload = function() {
 				setLastRefresh(newRefresh)
 				display()
 			}
-			img.src = imageLink("Wind", newRefresh, actualImageDate)
+			img.src = imageLink("Wind", newRefresh, getDate(newRefresh, actualImageNo))
 		}
 		
 		function print(str) {
