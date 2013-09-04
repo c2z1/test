@@ -1,50 +1,84 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<style type="text/css" media="all"> @import "dmi.css"; </style>
 	<style type="text/css">
-		.Button { background-color:#aaa; color:#fff; width:78px; height:40px; border:2px solid #ddd; 
-				border-radius:10px; font: 18px Georgia, serif; padding-bottom: 5px}
-		#datelabel {color: #555; font: 16px Georgia, serif; width:300px}
-		.arrowbtn {font-weight: bolder}
-		#imageDiv {style=display: block; width:640px; height:400px}
-		#navslider {display: block; width:640px; height:40px}
-		#navbutton {display: block; width:640px; height:40px}
-		.sliderpart {
-			height: 30px;
+		#windDiv {
 			display: block;
-    		position: relative;
-    		float: left;
-    		background-color: #aaa;
+			z-index: 1;
+			position: absolute;
+			width:640px; 
+			height:400px;
+		}
+		#windDirDiv {
+			display: block;
+			z-index: 2;
+			position: relative;
+			width:640px; 
+			height:400px;
 		}
 	</style>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-</script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://malsup.github.io/min/jquery.cycle.all.min.js"></script>
+<script type="text/javascript" src="dmi.js"></script>
 <script>
-	$(function(){
-		$()
-
+	$(function() {
+		init(initImages, displayJQ);
 	}); 
+	
+	function initImages() {
+		var wd = $('#windDiv')
+ 		for (var i = 0; i < ImageCount; i++) {
+ 			var imgDate = getDate(lastRefresh, i)
+ 			var img = document.createElement('img')
+ 			img.src = imageLink("Wind", lastRefresh, imgDate)
+ 			wd.append(img)
+ 		}
+		wd.cycle({ 
+		    speed:  0 
+		 });
+		wd.cycle('pause');
+		var wdd = $('#windDirDiv')
+ 		for (var i = 0; i < ImageCount; i++) {
+ 			var imgDate = getDate(lastRefresh, i)
+ 			var img = document.createElement('img')
+ 			img.src = imageLink("WindDirection", lastRefresh, imgDate)
+ 			wdd.append(img)
+ 		}
+		wdd.cycle({ 
+		    speed:  10 
+		 });
+		wdd.cycle('pause');
+		displayJQ();
+	}
+	
+	function displayJQ() {
+		print(actualImageNo)
+		displaySliderPos(actualImageNo)
+		displayLabel()
+		$('#windDiv').cycle(actualImageNo);
+		$('#windDirDiv').cycle(actualImageNo);
+	}
 
 </script>
 </head>
 <body class="fullpage">
-	<div class="imageWrapper" style="display: block; width:640px; height:400px;">
-		<div style="position: absolute; z-index:1"><img id="Wind" class="overlayImage"></div> 
-		<div style="position: relative; z-index:2"><img id="WindDirection" class="overlayImage"></div> 
+	<div id="windDiv">
 	</div>
-	<input type="submit" class="arrowbtn Button" value="<<" onclick="next(-5)"/>
-	<input type="submit" class="arrowbtn Button" value="<" onclick="next(-1)"/>
-	<input type="submit" class="arrowbtn Button" value=">" onclick="next(1)"/>
-	<input type="submit" class="arrowbtn Button" value=">>" onclick="next(5)"/>
-	<label>&nbsp;</label>
-	<label id="label" style =></label>
-	<label>&nbsp;</label>
-	<input type="submit" class="Button" title="Zeit der Vorhersageberechnung" id="refreshDateBtn" onclick="testRefresh()"/>
-	<br>
-	<script>
-		init();
-	</script>
+	<div id="windDirDiv"></div>
+	<div id=navslider></div>
+	<div id=navbuttons>
+		<input type="submit" class="arrowbtn Button" value="<<" onclick="nextImage(-5)"/>
+		<input type="submit" class="arrowbtn Button" value="<" onclick="nextImage(-1)"/>
+		<input type="submit" class="arrowbtn Button" value=">" onclick="nextImage(1)"/>
+		<input type="submit" class="arrowbtn Button" value=">>" onclick="nextImage(5)"/>
+		<label>&nbsp;</label>
+		<label id="datelabel" style =></label>
+		<label>&nbsp;</label>
+		<input type="submit" class="Button" title="Zeit der Vorhersageberechnung" id="refreshDateBtn" 
+				onclick="nextImage(1)"/>
+	</div>
 	<br>
 	<label id="print"></label>
 	

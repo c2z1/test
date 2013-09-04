@@ -17,7 +17,10 @@
 		
 		var SliderPartName = "sliderpart";
 		
-		function init() {
+		var displayCallback;
+		
+		function init(startCallback, displCallback) {
+			displayCallback = displCallback
 			initSlider();
 			var now = new Date()
 			var hours = now.getHours();
@@ -33,16 +36,16 @@
 			if (hours >= 20) {
 				hours = hours - 12;
 			}
-			initLastRefreshAndDisplay(now.addHours(-hours-6));
+			initLastRefreshAndDisplay(now.addHours(-hours-6), startCallback);
 			
 		}
 
-		function initLastRefreshAndDisplay(date) {
+		function initLastRefreshAndDisplay(date, startCallback) {
 			var nextVal = date.addHours(6)
 			img = new Image()
 			img.onload = function() {
 				setLastRefresh(nextVal)
-				display()
+				startCallback()
 			}
 			img.onerror = function() {
 				initLastRefreshAndDisplay(date.addHours(-6))
@@ -85,7 +88,7 @@
 			if (nr != actualImageNo) {
 	//			print('image ' + nr)
 				actualImageNo = nr
-				display();
+				displayCallback();
 			}
 		}
 		
@@ -109,6 +112,7 @@
 		}
 		
 		function nextImage(count) {
+			print('next: ' + count)
 			setActImage(actualImageNo + count)
 		}
 		
@@ -122,9 +126,16 @@
 			var imgDate = getDate(lastRefresh, actualImageNo)
 			document.getElementById("Wind").src = imageLink("Wind", lastRefresh, imgDate)
 			document.getElementById("WindDirection").src = imageLink("WindDirection", lastRefresh, imgDate)
+			displLabel(imgDate)
+		}
+		
+		function displayLabel() {
+			displLabel(getDate(lastRefresh, actualImageNo))
+		}
+		function displLabel(imgDate) {
 			var displayDate = imgDate.addHours(2)
 			document.getElementById("datelabel").innerHTML = Wochentag[displayDate.getDay()] + ", "
-					+ dateDisplStr(displayDate) + "   "
+			+ dateDisplStr(displayDate) + "   "
 		}
 		
 		function preloadImage(imgNo) {
@@ -153,7 +164,7 @@
 			var img = new Image()
 			img.onload = function() {
 				setLastRefresh(newRefresh)
-				display()
+				displayCallback()
 			}
 			img.src = imageLink("Wind", newRefresh, getDate(lastRefresh, actualImageNo))
 		}
