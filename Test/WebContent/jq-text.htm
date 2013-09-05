@@ -23,42 +23,40 @@
 <script src="http://malsup.github.io/min/jquery.cycle.all.min.js"></script>
 <script type="text/javascript" src="dmi.js"></script>
 <script>
+	var windDirId = '#windDirDiv'
+	var windId = '#windDiv'
+	
 	$(function() {
 		init(initImages, displayJQ);
 	}); 
 	
 	function initImages() {
-		var wd = $('#windDiv')
- 		for (var i = 0; i < ImageCount; i++) {
- 			var imgDate = getDate(lastRefresh, i)
- 			var img = document.createElement('img')
- 			img.src = imageLink("Wind", lastRefresh, imgDate)
- 			wd.append(img)
- 		}
-		wd.cycle({ 
-		    speed:  0 
-		 });
-		wd.cycle('pause');
-		var wdd = $('#windDirDiv')
- 		for (var i = 0; i < ImageCount; i++) {
- 			var imgDate = getDate(lastRefresh, i)
- 			var img = document.createElement('img')
- 			img.src = imageLink("WindDirection", lastRefresh, imgDate)
- 			wdd.append(img)
- 		}
-		wdd.cycle({ 
-		    speed:  10 
-		 });
-		wdd.cycle('pause');
+		prepareImg(windId, 'Wind')
+		prepareImg(windDirId, 'WindDirection')
 		displayJQ();
 	}
 	
+	function prepareImg(id, type) {
+		var wdd = $(id)
+ 		for (var i = 0; i < ImageCount; i++) {
+ 			var imgDate = getDate(lastRefresh, i)
+ 			var img = document.createElement('img')
+ 			img.src = imageLink(type, lastRefresh, imgDate)
+ 			wdd.append(img)
+ 		}
+		wdd.cycle({
+	        fx: 'none',
+	        speed : 400,
+	        timeout:  400,
+	    });
+		wdd.cycle('pause');
+	}
+	
 	function displayJQ() {
-		print(actualImageNo)
 		displaySliderPos(actualImageNo)
 		displayLabel()
-		$('#windDiv').cycle(actualImageNo);
-		$('#windDirDiv').cycle(actualImageNo);
+		$(windId).cycle(actualImageNo);
+		$(windDirId).cycle(actualImageNo);
 	}
 
 </script>
@@ -81,6 +79,5 @@
 	</div>
 	<br>
 	<label id="print"></label>
-	
 </body>
 </html>

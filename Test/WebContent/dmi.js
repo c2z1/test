@@ -112,7 +112,7 @@
 		}
 		
 		function nextImage(count) {
-			print('next: ' + count)
+//			print('next: ' + count)
 			setActImage(actualImageNo + count)
 		}
 		
