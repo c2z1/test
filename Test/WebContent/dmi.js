@@ -21,36 +21,35 @@
 		
 		function init(startCallback, displCallback) {
 			displayCallback = displCallback
-			initSlider();
-			var now = new Date()
-			var hours = now.getHours();
+			initSlider()
+			var now = new Date().addHours(-0.5) // halbe Stunde abziehen, um schon um 13:30 die 14:00-Vorhersage zu testen
+			var hours = now.getHours()
 			if (hours < 2) {
-				hours = hours + 12;
+				hours = hours + 12
 			} else 
 			if (hours >= 2 && hours < 8) {
-				hours = hours + 6;
+				hours = hours + 6
 			} else 
 			if (hours >= 14 && hours < 20) {
-				hours = hours - 6;
+				hours = hours - 6
 			} else 
 			if (hours >= 20) {
-				hours = hours - 12;
+				hours = hours - 12
 			}
-			initLastRefreshAndDisplay(now.addHours(-hours-6), startCallback);
+			initLastRefreshAndDisplay(now.addHours(-hours), startCallback);
 			
 		}
 
 		function initLastRefreshAndDisplay(date, startCallback) {
-			var nextVal = date.addHours(6)
 			img = new Image()
 			img.onload = function() {
-				setLastRefresh(nextVal)
+				setLastRefresh(date)
 				startCallback()
 			}
 			img.onerror = function() {
-				initLastRefreshAndDisplay(date.addHours(-6))
+				initLastRefreshAndDisplay(date.addHours(-6), startCallback)
 			}
-			img.src = imageLink("Wind", nextVal, getDate(nextVal, actualImageNo))
+			img.src = imageLink("Wind", date, getDate(date, actualImageNo))
 		}
 		
 		function initSlider() {
@@ -135,7 +134,7 @@
 		function displLabel(imgDate) {
 			var displayDate = imgDate.addHours(2)
 			document.getElementById("datelabel").innerHTML = Wochentag[displayDate.getDay()] + ", "
-			+ dateDisplStr(displayDate) + "   "
+					+ dateDisplStr(displayDate) + "   "
 		}
 		
 		function preloadImage(imgNo) {
@@ -156,7 +155,7 @@
 		
 		function setLastRefresh(val) {
 			lastRefresh = val
-			document.getElementById("refreshDateBtn").value = lastRefresh.getHours() + ":00"
+//			document.getElementById('refreshLabel').innerHTML = lastRefresh.getHours() + ":00"
 		}
 		
 		function testRefresh() {

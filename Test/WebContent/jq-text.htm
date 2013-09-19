@@ -17,6 +17,27 @@
 			width:640px; 
 			height:400px;
 		}
+		#datelabel {
+			display: block;
+			z-index: 3;
+			position: absolute;
+			width:240px; 
+			height:22px;
+			left:380px;
+			top:355px;
+			background-color: white;
+		}
+/*		#refreshLabel {
+			display: block;
+			z-index: 3;
+			position: absolute;
+			width:45px; 
+			height:22px;
+			left:10px;
+			top:380px;
+			background-color: white;
+			text-align:center; 
+		}*/
 	</style>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -39,17 +60,15 @@
 	function prepareImg(id, type) {
 		var wdd = $(id)
  		for (var i = 0; i < ImageCount; i++) {
- 			var imgDate = getDate(lastRefresh, i)
  			var img = document.createElement('img')
- 			img.src = imageLink(type, lastRefresh, imgDate)
+ 			img.src = imageLink(type, lastRefresh, getDate(lastRefresh, i))
  			wdd.append(img)
  		}
 		wdd.cycle({
 	        fx: 'none',
 	        speed : 400,
-	        timeout:  400,
+	        timeout: 0,
 	    });
-		wdd.cycle('pause');
 	}
 	
 	function displayJQ() {
@@ -64,6 +83,8 @@
 <body class="fullpage">
 	<div id="windDiv">
 	</div>
+	<label id="datelabel"></label>
+	<!-- label id="refreshLabel"></label> -->
 	<div id="windDirDiv"></div>
 	<div id=navslider></div>
 	<div id=navbuttons>
@@ -72,10 +93,6 @@
 		<input type="submit" class="arrowbtn Button" value=">" onclick="nextImage(1)"/>
 		<input type="submit" class="arrowbtn Button" value=">>" onclick="nextImage(5)"/>
 		<label>&nbsp;</label>
-		<label id="datelabel" style =></label>
-		<label>&nbsp;</label>
-		<input type="submit" class="Button" title="Zeit der Vorhersageberechnung" id="refreshDateBtn" 
-				onclick="nextImage(1)"/>
 	</div>
 	<br>
 	<label id="print"></label>
