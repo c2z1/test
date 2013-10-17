@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>  
+	<meta charset="UTF-8">
+    <title>DMI-Forecast</title>
+	<style type="text/css" media="all"> @import "dmi.css"; </style>
+	<script type="text/javascript" src="dmi.js"></script>
+</head>
+<body class="fullpage">
+	<div id="imageDiv">
+		<div style="position: absolute; z-index:1"><img id="Wind" class="overlayImage"></div> 
+		<div style="position: relative; z-index:2"><img id="WindDirection" class="overlayImage"></div> 
+	</div>
+	<div id=navslider></div>
+	<div id=navbuttons>
+		<input type="submit" class="arrowbtn Button" value="<<" onclick="nextImage(-5)"/>
+		<input type="submit" class="arrowbtn Button" value="<" onclick="nextImage(-1)"/>
+		<input type="submit" class="arrowbtn Button" value=">" onclick="nextImage(1)"/>
+		<input type="submit" class="arrowbtn Button" value=">>" onclick="nextImage(5)"/>
+		<label>&nbsp;</label>
+		<label id="datelabel"></label>
+		<label>&nbsp;</label>
+		<label id="refreshLabel" title="Zeit der Vorhersageberechnung" ></label>
+		<input type="submit" class="Button" title="Zeit der Vorhersageberechnung" id="refreshDateBtn" 
+				onclick="testRefresh()"/>
+	</div>
+	<br>
+	<script>
+		init(display, display);
+	</script>
+	<br>
+	<label id="print"></label>
+	
+</body>
+</html>
