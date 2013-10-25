@@ -22,7 +22,7 @@
 		function init(startCallback, displCallback) {
 			displayCallback = displCallback
 			initSlider()
-			var now = new Date().addHours(-0.5) // halbe Stunde abziehen, um schon um 13:30 die 14:00-Vorhersage zu testen
+			var now = new Date().addHours(+0.5) // plus halbe Stunde, um schon um 13:30 die 14:00-Vorhersage zu testen
 			var hours = now.getHours()
 			if (hours < 2) {
 				hours = hours + 12
