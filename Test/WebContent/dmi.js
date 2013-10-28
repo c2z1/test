@@ -3,7 +3,8 @@
 			ret.setTime(this.getTime() + (h*60*60*1000)); 
 			return ret;   
 		}
-		Wochentag = new Array("Sonntag", "Montag", "Dienstag", "Mittwoch",
+		
+		var Wochentag = new Array("Sonntag", "Montag", "Dienstag", "Mittwoch",
                           "Donnerstag", "Freitag", "Samstag");
 						  
 		var actualImageNo = 0;
@@ -22,22 +23,16 @@
 		function init(startCallback, displCallback) {
 			displayCallback = displCallback
 			initSlider()
-			var now = new Date().addHours(+0.5) // plus halbe Stunde, um schon um 13:30 die 14:00-Vorhersage zu testen
-			var hours = now.getHours()
-			if (hours < 2) {
-				hours = hours + 12
-			} else 
-			if (hours >= 2 && hours < 8) {
+			var now = new Date().addHours(0.5);
+			var hours = now.getUTCHours()
+			if (hours < 6) {
 				hours = hours + 6
-			} else 
-			if (hours >= 14 && hours < 20) {
+			} else if (hours >= 12 && hours < 18) {
 				hours = hours - 6
-			} else 
-			if (hours >= 20) {
-				hours = hours - 12
+			} else if (hours >= 18) {
+				hours = hours -12
 			}
 			initLastRefreshAndDisplay(now.addHours(-hours), startCallback);
-			
 		}
 
 		function initLastRefreshAndDisplay(date, startCallback) {
@@ -49,7 +44,7 @@
 			img.onerror = function() {
 				initLastRefreshAndDisplay(date.addHours(-6), startCallback)
 			}
-			img.src = imageLink("Wind", date, getDate(date, actualImageNo))
+			img.src = imageLink("Wind", date, getDate(date, 0))
 		}
 		
 		function initSlider() {
@@ -85,7 +80,6 @@
 		
 		function setActImage(nr) {
 			if (nr != actualImageNo) {
-	//			print('image ' + nr)
 				actualImageNo = nr
 				displayCallback();
 			}
@@ -97,8 +91,8 @@
 		}
 		
 		function dateUrlStr(dateParam) {
-			return dateParam.getFullYear() + zweistellig(dateParam.getMonth()+1) 
-					+ zweistellig(dateParam.getDate()) + "_" + zweistellig(dateParam.getHours()) + "00"
+			return dateParam.getUTCFullYear() + zweistellig(dateParam.getUTCMonth()+1) 
+					+ zweistellig(dateParam.getUTCDate()) + "_" + zweistellig(dateParam.getUTCHours()) + "00"
 		}
 		
 		function imageLink(type, refreshDate, imgDate) {
@@ -111,7 +105,6 @@
 		}
 		
 		function nextImage(count) {
-//			print('next: ' + count)
 			setActImage(actualImageNo + count)
 		}
 		
@@ -131,9 +124,8 @@
 			displLabel(getDate(lastRefresh, actualImageNo))
 		}
 		function displLabel(imgDate) {
-			var displayDate = imgDate.addHours(2)
-			document.getElementById("datelabel").innerHTML = Wochentag[displayDate.getDay()] + ", "
-					+ dateDisplStr(displayDate) + "   "
+			document.getElementById("datelabel").innerHTML = Wochentag[imgDate.getDay()] + ", "
+					+ dateDisplStr(imgDate) + "   "
 		}
 		
 		function preloadImage(imgNo) {
